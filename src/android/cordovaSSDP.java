@@ -3,7 +3,7 @@ package com.scott.plugin;
 import org.apache.cordova.*;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.SyncHttpClient;
+import com.loopj.android.http.AsyncHttpClient;
 import cz.msebera.android.httpclient.Header;
 
 import java.net.DatagramPacket;
@@ -49,7 +49,7 @@ public class cordovaSSDP extends CordovaPlugin {
         }
         return null;
     }
-    
+
     private void createServiceObjWithXMLData(String url, final JSONObject jsonObj) {
         AsyncHttpClient asyncRequest = new AsyncHttpClient();
         asyncRequest.get(mContext.getApplicationContext(), url, new AsyncHttpResponseHandler() {
