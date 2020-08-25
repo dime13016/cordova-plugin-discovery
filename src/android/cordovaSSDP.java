@@ -49,11 +49,14 @@ public class cordovaSSDP extends CordovaPlugin {
         }
         return null;
     }
-
+    
     private void createServiceObjWithXMLData(String url, final JSONObject jsonObj) {
-
-        SyncHttpClient syncRequest = new SyncHttpClient();
-        syncRequest.get(mContext.getApplicationContext(), url, new AsyncHttpResponseHandler() {
+        AsyncHttpClient asyncRequest = new AsyncHttpClient();
+        asyncRequest.get(mContext.getApplicationContext(), url, new AsyncHttpResponseHandler() {
+            @Override
+            public boolean getUseSynchronousMode() {
+                return false;
+            }
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
@@ -67,7 +70,8 @@ public class cordovaSSDP extends CordovaPlugin {
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody,
                                   Throwable error) {
-                LOG.e(TAG, responseBody.toString());
+                LOG.e(TAG, "An error occured for the following url : "+url);
+                //LOG.e(TAG, responseBody.toString());
             }
         });
     }
